@@ -22,43 +22,63 @@ Untersuchen Sie die Angriffsdauer von Brute-Force-Angriffen für die Schlüssell
   ```
   40 Bit:
    
-  Maximale Dauer: 1099511627776 / (500000000 * 10000) = 0,2199 Sekunden
-  Durchschnittliche Dauer: 0,2199 Sekunden / 2 = 0,10995 Sekunden
-  Minimale Dauer: < 1 Sekunde
+  Maximale Dauer: 2^40 / (5 * 10^12) = 0.2199 Sekunden
+  Durchschnittliche Dauer: 0.2199 Sekunden / 2 = 0.10995 Sekunden
+  Minimale Dauer: << 1 Sekunde
    
   56 Bit 
   
-  Maximale Dauer: 1099511627776 / 500000000 = 2199 Sekunden / 60 = 36,65 Minuten
-  Durchschnittliche Dauer: 2199 Sekunden / 2 = ~1099.5 Sekunden / 60 = 18,33 Minuten
-  Minimale Dauer: < 1 Sekunde
+  Maximale Dauer: 2^56 / (5 * 10^12) = 14411.52 Sekunden
+  Durchschnittliche Dauer: 14411.52 Sekunden Sekunden / 2 = 7206 Sekunden
+  Minimale Dauer: << 1 Sekunde
   
   64 Bit
+
+  Maximale Dauer: 2^64 / (5 * 10^12) = 3.69 * 10^6 Sekunden = 42.71 Tage
+  Durchschnittliche Dauer: 3.69 * 10^6 Sekunden / 2 = 1845000 Sekunden = 21.35 Tage
+  Minimale Dauer: << 1 Sekunde
   
   112 Bit
-  
+
+  Maximale Dauer: 2^112 / (5 * 10^12) = 1.04 * 10^21 Sekunden
+  Durchschnittliche Dauer:  1.04 * 10^21 Sekunden / 2 = 5.2 * 10^20 Sekunden
+  Minimale Dauer: << 1 Sekunde
+
   128 Bit
   
-  Maximale Dauer: 1099511627776 / 500000000 = 2199 Sekunden / 60 = 36,65 Minuten
-  Durchschnittliche Dauer: 2199 Sekunden / 2 = ~1099.5 Sekunden / 60 = 18,33 Minuten
-  Minimale Dauer: < 1 Sekunde
-  3,4028236692093846346337460743177e+38
+  Maximale Dauer: 2^128 / (5 * 10^12) = 6.81 * 10^25 Sekunden
+  Durchschnittliche Dauer:  6.81 * 10^25 Sekunden / 2 = 3.41 * 10^25 Sekunden
+  Minimale Dauer: << 1 Sekunde
+
   ```
 
 
 * In wievielen Jahren könnte mit einem Etat von 1 Mrd Euro unter der Annahme der Weitergeltung von Moore's Law eine Schlüsselsuchmaschine gebaut werden, welche eine durchschnittliche Suchzeit von 24 Stunden benötigt?
 
+```
+FORMELN:  
+Anzahl Prüfungen / Sekunde = (Etat / Preis ASIC-Einheit) * Anzahl Prüfungen pro ASIC-Einheit pro Sekunde
+Preis ASIC-Einheit = 100 / 2^x
+x = Anzahl Jahre, die vergangen sind
+Durchschnittl. Suchzeit = Anzahl Schlüsselkombinationen / Anzahl Prüfungen pro Sekunde
+Anzahl Prüfungen pro Sekunde = Anzahl Schlüsselkombinationen / Durchschnittl. Suchzeit
 
-Gesucht: Jahre
+Wir gehen von einer 128 Bit Schlüssellänge aus.
 
-128
+Um eine 128 Bit Schlüssellänge per Brute force in 24 Stunden zu knacken, würde man folgende Rechenkraft benötigen:
 
-x = Anzahlschlüssel
-y = Berechnung pro Sekunde
+Anzahl Prüfungen pro Sekunde = 2^128 / 3.41 * 10^25 Sekunden = 9.97 * 10^62
 
-y = (anzahl der geräte) * (5 * 10^8)
+Unter Annahme von Moore's Law und einem Etat von 1 Mrd. Euro würde man X Jahre warten müssen, um dies zu ermöglichen.
+
+Anzahl Prüfungen / Sekunde = (Etat / Preis ASIC-Einheit) * Anzahl Prüfungen pro ASIC-Einheit pro Sekunde
+Preis ASIC-Einheit = 100 / 2^x
 
 
-anzahl der geräte =  1000000000 / ((preis pro gerät)/ (2* anzahlderJahre))
+RECHNUNG: 
+Die erste Formal umgestellt und alle bekannten Variablen eingesetzt ergibt sich folgende Rechnung.
 
-8 = 4
-4 = 2
+x = log2(100 * (9.97 * 10^62) / (1 * 10^9) *( 5 * 10^8))
+x = ~215 Jahre
+
+```
