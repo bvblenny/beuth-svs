@@ -9,7 +9,8 @@ ALPHADICT = {x:0 for x in ALPHABET}
 BY_FREQ = " etaoinshrdlcumwfgypbvkjxqz"
 
 def main():
-    fl = list(promptUserAndGetCipheredText())
+    fl = list(get_encoded_text())
+    
 
     # determine frequency of each letter in the file
     freq_dict = letter_freq_file(fl)
@@ -23,26 +24,23 @@ def main():
     for line in fl:
         print(substitute(line, alphabet_by_freq))
 
-def promptUserAndGetCipheredText():
-    ciphertextFile = open('ciphertext.txt', 'w')
-    textToCipher = input('Text to cipher: ')
-  
-    if not textToCipher:
-      plaintextFile = open('plaintext.txt', 'r')
-      textToCipher = plaintextFile.read()
+def get_encoded_text():
+    input_text = input('Text to cipher: ')
+    encoded_text = encode(input_text.lower())
+    print(encoded_text)
+    file = open('ciphertext.txt', 'w')
+    file.write(encoded_text)
+    file.close()
+    print('Encoded text saved to file.')
     
-    ciphered = cipher(textToCipher)
-    ciphertextFile.write(ciphered)
-    print('Ciphered text saved to file.')
-    
-    return ciphered
+    return encoded_text
 
 def letter_freq(s, freq_dict):
     for letter in s:
         if letter.lower() in ALPHABET:
             freq_dict[letter.lower()] += 1
 
-# takes a list of strings (usually lines from a file) and returns a dict
+# takes a list of strings and returns a dict
 # containing the frequency of every character
 def letter_freq_file(string_list):
     freq_dict = copy.deepcopy(ALPHADICT)
@@ -97,7 +95,7 @@ def count_ngrams(s, n):
             counter[ngram] += 1
     return counter
     
-def cipher(text):
+def encode(text):
     trans = str.maketrans(ascii_lowercase, CIPHER_LETTERS)
     return text.translate(trans)
     
