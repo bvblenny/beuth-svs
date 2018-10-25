@@ -2,11 +2,12 @@ import sys
 import copy
 from collections import Counter
 from string import ascii_lowercase
+from spellchecker import SpellChecker
 
 CIPHER_LETTERS = 'nzghqkcdmyfoialxevtswrupjb'
 ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 ALPHADICT = {x:0 for x in ALPHABET}
-BY_FREQ = " etaoinshrdlcumwfgypbvkjxqz"
+BY_FREQ = "etaoinshrdlcumwfgypbvkjxqz"
 
 def main():
     fl = list(get_encoded_text())
@@ -62,8 +63,10 @@ def substitute(string, alphabet_by_freq):
     return ret
 
 def is_word(s):
-    return True
     # test whether a string is in a dictionary.
+    spell = SpellChecker()
+    misspelled = spell.unknown([s])
+    return len(misspelled) == 0
 
 def is_decoded(sl):
     new_sl = []
@@ -72,6 +75,7 @@ def is_decoded(sl):
         new_sl.append(s)
 
     # new_sl is now a list of lists of words
+    # check randomly chosen words to appear in a dictionary or not
     word_count = 0
     for i in range(10):
         if is_word(random.choice(random.choice(new_sl))):
